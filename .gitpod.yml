@@ -1,0 +1,8 @@
+# List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
+tasks:
+  - before: docker pull wordpress && docker pull mysql:5.7 && pip install -U pip setuptools wheel fabric python-dotenv black isort flake8
+    command: ./gpurl.sh # the url of the exposed containers
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+# ports:
+#   - port: 8080
+#     onOpen: open-preview

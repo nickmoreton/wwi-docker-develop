@@ -1,0 +1,58 @@
+version: '3.9'
+
+services:
+
+  wagtail:
+    build: .
+    volumes:
+      - ./example:/app/example
+      - ./media:/app/media
+      - ./static:/app/static
+      - ./xml:/app/xml
+      - ./log:/app/log
+      - ./wagtail-wordpress-import:/app/wagtail-wordpress-import
+    ports:
+      - "8000:8000"
+    command: python example/manage.py runserver 0:8000
+    depends_on:
+      - psqldb
+
+  psqldb:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - psqldb:/var/lib/postgresql/data
+
+  wordpress:
+    image: wordpress
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: mysqldb
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    ports:
+      - "8080:80"
+    volumes:
+      # - ./wordpress:/var/www/html:rw # uncomment to see the WordPress files locally
+      - ./xml:/xml # WordPress XML files shared from the container
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - mysqldb:/var/lib/mysql
+
+volumes:
+  # wordpress: # uncomment to see the WordPress files locally
+  mysqldb:
+  psqldb:

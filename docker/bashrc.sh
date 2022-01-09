@@ -1,0 +1,5 @@
+alias dj="python /app/example/manage.py"
+alias djrun="python /app/example/manage.py runserver 0.0.0.0:8000"
+alias djtest="cd /app/wagtail-wordpress-import && python testmanage.py test && cd /app"
+alias djimport="python /app/example/manage.py import_xml xml/export.xml 3"
+alias djdelete="python /app/example/manage.py delete_imported_pages pages PostPage"

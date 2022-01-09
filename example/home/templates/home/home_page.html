@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+
+<h3>Categories</h3>
+
+{% for category in categories %}
+<button>
+    <a href="/?cat={{category.id}}">{{category}}</a>
+</button>
+{% endfor %}
+<hr>
+<h3>Posts Live:</h3>
+<ul style="margin:0;padding:0;list-style:none">
+    {% for page in posts %}
+    <li style="display:flex">
+
+        <a href="{{page.url}}">{% image page.specific.header_image max-100x100 %}{{page}}</a>
+    </li>
+    {% endfor %}
+
+</ul>
+<hr>
+{% endblock content %}
+
+{% block extra_css %}
+<style>
+    button {
+        margin-bottom: .2em;
+        border: 1px solid darkgrey;
+    }
+</style>
+{% endblock %}
