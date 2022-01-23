@@ -32,10 +32,12 @@ COPY --chown=wagtailkit_repo_name pyproject.toml poetry.lock ./
 RUN pip install --upgrade pip && poetry install ${POETRY_INSTALL_ARGS} --no-root
 
 COPY --chown=wagtail:wagtail . .
+COPY --chown=wagtail:wagtail ./docker/wagtail-init.sh /app/wagtail-init.sh
+COPY --chown=wagtail:wagtail ./docker/bashrc.sh /home/wagtail/.bashrc
+RUN pip install -e wagtail-wordpress-import
 
 RUN poetry install ${POETRY_INSTALL_ARGS}
 
-COPY ./docker/bashrc.sh /home/wagtail/.bashrc
 # RUN mkdir -p /app/xml /app/media /app/static /app/log
 
 # Install system packages required by Wagtail and Django.
@@ -62,13 +64,12 @@ COPY ./docker/bashrc.sh /home/wagtail/.bashrc
 # Set this directory to be owned by the "wagtail" user. This Wagtail project
 # uses SQLite, the folder needs to be owned by the user that
 # will be writing to the database file.
-RUN mkdir -p /app/xml /app/media /app/static /app/log
-RUN chown -R wagtail:wagtail /app
+# RUN mkdir -p /app/xml /app/media /app/static /app/log
+# RUN chown -R wagtail:wagtail /app
 # RUN chown wagtail:wagtail /app/xml
 # Copy the source code of the project into the container.
-COPY --chown=wagtail:wagtail . .
-COPY ./docker/wagtail-init.sh /app/wagtail-init.sh
-RUN pip install -e wagtail-wordpress-import
+# COPY --chown=wagtail:wagtail . .
+
 
 
 
