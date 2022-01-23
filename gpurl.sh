@@ -1,1 +1,0 @@
-echo url=$(gp url 8080) > .env
