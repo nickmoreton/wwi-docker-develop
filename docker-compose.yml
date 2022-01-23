@@ -5,12 +5,13 @@ services:
   wagtail:
     build: .
     volumes:
-      - ./example:/app/example
-      - ./media:/app/media
-      - ./static:/app/static
-      - ./xml:/app/xml
-      - ./log:/app/log
-      - ./wagtail-wordpress-import:/app/wagtail-wordpress-import
+      - .:/app
+      # - ./example:/app/example
+      # - ./media:/app/media
+      # - ./static:/app/static
+      # - ./xml:/app/xml
+      # - ./log:/app/log
+      # - ./wagtail-wordpress-import:/app/wagtail-wordpress-import
     ports:
       - "8000:8000"
     command: python example/manage.py runserver 0:8000
