@@ -2,10 +2,6 @@
 
 ## Set Up
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/nickmoreton/wwi-docker-develop)
-
-Gitpod has everything installed that you need to get started.
-
 ## Local Development
 
 Initial setup uses [Fabric](https://www.fabfile.org/) and [python-dotenv](https://saurabh-kumar.com/python-dotenv/) which you will need to have installed on your local machine.
