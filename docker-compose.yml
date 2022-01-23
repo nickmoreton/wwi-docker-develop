@@ -6,9 +6,6 @@ services:
     build: .
     volumes:
       - .:/app
-      # - ./example:/app/example
-      # - ./media:/app/media
-      # - ./static:/app/static
       - ./xml:/app/xml
       - ./log:/app/log
       - ./wagtail-wordpress-import:/app/wagtail-wordpress-import
@@ -17,6 +14,12 @@ services:
     command: python example/manage.py runserver 0:8000
     depends_on:
       - psqldb
+    environment:
+      - PSQL_HOST=psqldb
+      - PSQL_DATABASE=postgres
+      - PSQL_USER=postgres
+      - PSQL_PASSWORD=example
+      - PSQL_PORT=5432
 
   psqldb:
     image: postgres
