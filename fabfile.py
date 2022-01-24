@@ -226,3 +226,23 @@ def wprestart(c):
     Restart the WordPress container
     """
     local("docker-compose restart wordpress")
+
+
+def wtdocker_exec(cmd, service="wagtail"):
+    return local(f"docker-compose exec -T {quote(service)} bash -c {quote(cmd)}")
+
+
+@task
+def run_tests(c):
+    """
+    Run the tests
+    """
+    wtdocker_exec("cd /app/wagtail-wordpress-import && python testmanage.py test")
+
+
+@task
+def run_import(c):
+    """
+    Run the import
+    """
+    wtdocker_exec("python /app/example/manage.py import_xml xml/export.xml 3")

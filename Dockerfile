@@ -34,6 +34,6 @@ RUN pip install --upgrade pip && poetry install ${POETRY_INSTALL_ARGS} --no-root
 COPY --chown=wagtail:wagtail . .
 COPY --chown=wagtail:wagtail ./docker/wagtail-init.sh /app/wagtail-init.sh
 COPY --chown=wagtail:wagtail ./docker/bashrc.sh /home/wagtail/.bashrc
-RUN pip install -e wagtail-wordpress-import
+RUN cd wagtail-wordpress-import && pip install -e .["testing"]
 
 RUN poetry install ${POETRY_INSTALL_ARGS}

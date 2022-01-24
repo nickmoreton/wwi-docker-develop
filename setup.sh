@@ -16,3 +16,9 @@ if [ ! -d "wagtail-wordpress-import" ]; then
 else
     echo "Using existing wagtai-wordpress-import."
 fi
+
+fab build
+fab start
+fab run-tests
+fab init
+fab run-import
