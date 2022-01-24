@@ -22,7 +22,7 @@ cd wwi-docker-develop
 ./setup.sh
 ```
 
-Once you have folled the above steps, you will be able to access the
+Once you have followed the above steps, you will be able to access the
 
 - Wagtail admin interface at <http://localhost:8000/admin>
 - Wagtail admin interface at  <http://localhost:8080/wp-admin>
