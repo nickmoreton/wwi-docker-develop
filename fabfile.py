@@ -241,8 +241,36 @@ def run_tests(c):
 
 
 @task
-def run_import(c):
+def run_import(c, file_name="export.xml", app="pages", model="PostPage"):
     """
     Run the import to Wagtail
     """
-    wtdocker_exec("python /app/example/manage.py import_xml xml/export.xml 3")
+    wtdocker_exec(f"python /app/example/manage.py import_xml xml/{file_name} 3 -a {app} -m {model}")
+
+
+@task
+def run_delete(c, app="pages", model="PostPage", images=False, documents=False):
+    """
+    Delete all the imported pages. Optionally delete the images and documents
+    """
+    wtdocker_exec(f"python /app/example/manage.py delete_imported_pages {app} {model}")
+    if images:
+        wtdocker_exec(f"python /app/example/manage.py delete_images")
+    if documents:
+        wtdocker_exec(f"python /app/example/manage.py delete_documents")
+
+
+@task
+def run_del_images(c):
+    """
+    Delete all the imported images
+    """
+    wtdocker_exec("python /app/example/manage.py delete_images")
+
+
+@task
+def run_del_documents(c):
+    """
+    Delete all the imported documents
+    """
+    wtdocker_exec("python /app/example/manage.py delete_documents")
