@@ -62,7 +62,8 @@ class EarningPotentialHandler(InlineShortcodeHandler):
         <strong>Earning Potential</strong> $50,371
         <span class="earning__timeframe">/yr</span>
         <a href="#/" class="" data-toggle="tooltip" data-placement="bottom" title=""
-            data-original-title="Every bit you make or save each month gets you closer to financial independence. Create an account to calculate how many days of freedom this will earn you in the future."
+            data-original-title="Every bit you make or save each month gets you closer to financial independence.
+            Create an account to calculate how many days of freedom this will earn you in the future."
             data-uw-rm-brl="false" aria-label="question-circle" data-uw-rm-empty-ctrl="">
             <i class="fas fa-question-circle"></i>
         </a>
@@ -86,7 +87,7 @@ class EarningPotentialHandler(InlineShortcodeHandler):
             attrs = self.get_shortcode_attrs(match.groupdict()["attrs"])
             html = html.replace(
                 match.group(),
-                f'<{self.element_name} data-{self.shortcode_name}="[amount:{attrs["amount"]};timeframe:{attrs["timeframe"]}]">{attrs["amount"]} {attrs["timeframe"]}</{self.element_name}>',
+                f'<{self.element_name} data-{self.shortcode_name}="[amount:{attrs["amount"]};timeframe:{attrs["timeframe"]}]">{attrs["amount"]} {attrs["timeframe"]}</{self.element_name}>',  ## noqa
             )
 
         return html

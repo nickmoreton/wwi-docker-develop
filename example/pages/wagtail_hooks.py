@@ -1,10 +1,9 @@
-import wagtail.admin.rich_text.editors.draftail.features as draftail_features
-from wagtail.core import hooks
-
-from draftjs_exporter.dom import DOM
-from wagtail.admin.rich_text.converters.html_to_contentstate import (
-    InlineEntityElementHandler,
-)
+# import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+# from draftjs_exporter.dom import DOM
+# from wagtail.admin.rich_text.converters.html_to_contentstate import (
+#     InlineEntityElementHandler,
+# )
+# from wagtail.core import hooks
 
 """ Uncomment to use inline shortcodes handler"""
 # @hooks.register("register_rich_text_features")

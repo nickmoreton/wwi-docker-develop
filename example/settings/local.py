@@ -6,9 +6,10 @@
 # SPECIFIC USE CASE
 """Enable ITEMS import
 This imports header images. See pages/import_hooks.py for more info."""
+# the wp:postmeta key to search for leading _ is removed also any : is replaced with _
 # WORDPRESS_IMPORT_HOOKS_ITEMS_TO_CACHE = {
 #     "attachment": {  # the item of type
-#         "DATA_TAG": "thumbnail_id",  # the wp:postmeta key to search for leading _ is removed also any : is replaced with _
+#         "DATA_TAG": "thumbnail_id",
 #         "FUNCTION": "pages.import_hooks.header_image",
 #     }
 # }

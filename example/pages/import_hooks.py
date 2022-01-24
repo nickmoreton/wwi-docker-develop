@@ -1,6 +1,5 @@
-from wagtail_wordpress_import.block_builder_defaults import get_or_save_image
-
 from pages.models import Author
+from wagtail_wordpress_import.block_builder_defaults import get_or_save_image
 
 
 # See pages/models.py:

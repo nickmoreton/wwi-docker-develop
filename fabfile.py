@@ -1,5 +1,4 @@
 import os
-import secrets
 import subprocess
 from shlex import quote
 
@@ -31,18 +30,12 @@ WAGTAIL_HOST = host_ip + ":8000"
 
 
 @task
-def build(ctx):
-    """Build Wagtail docker container"""
-    local("docker-compose build")
-
-
-@task
 def start(ctx):
     """
     Start the docker containers
     """
-    load_dotenv(".env")
-    url = os.environ.get("url")
+    # load_dotenv(".env")
+    # url = os.environ.get("url")
 
     local("docker-compose up -d")
 
@@ -53,7 +46,10 @@ def start(ctx):
 
     print("[bold green]WordPress is starting[/bold green]...")
     print(
-        "[bold red]Wait a minute or two for the WordPress container to start before running any further commands...[/bold red]"
+        (
+            "[bold red]Wait a minute or two for the WordPress container to start[/bold red]"
+        ),
+        ("before running any further commands..."),
     )
     print("-------------------------------------------------------")
     print("[bold]WordPress is installed.[/bold]")
@@ -126,8 +122,8 @@ def init(c):
     """
     Install WordPress CLI and import the XML theme fixures with media files (run this second)
     """
-    load_dotenv(".env")
-    url = os.environ.get("url")
+    # load_dotenv(".env")
+    # url = os.environ.get("url")
     local("mkdir -p xml")
 
     wpdocker_exec(
@@ -136,10 +132,11 @@ def init(c):
     wpdocker_exec("chmod +x wp-cli.phar")
     wpdocker_exec("mkdir -p /xml")
     wpdocker_exec(
-        "curl https://raw.githubusercontent.com/WPTT/theme-unit-test/master/themeunittestdata.wordpress.xml -o /xml/import.xml"
+        "curl https://raw.githubusercontent.com/WPTT/theme-unit-test/master/themeunittestdata.wordpress.xml -o /xml/import.xml"  # noqa
     )
+
     wpdocker_exec(
-        f"php wp-cli.phar core install --allow-root --url={WORDPRESS_HOST} --title=WordPress --admin_user={WORDPRESS_USER} --admin_password={WORDPRESS_PASSWORD} --admin_email={WORDPRESS_ADMIN_EMAIL}"
+        f"php wp-cli.phar core install --allow-root --url={WORDPRESS_HOST} --title=WordPress --admin_user={WORDPRESS_USER} --admin_password={WORDPRESS_PASSWORD} --admin_email={WORDPRESS_ADMIN_EMAIL}"  # noqa
     )
     wpdocker_exec(
         "php wp-cli.phar plugin install wordpress-importer --activate --allow-root"
@@ -151,11 +148,11 @@ def init(c):
     print("[bold]WordPress is installed.[/bold]")
     print("-------------------------------------------------------")
     print(
-        f"You can view the WordPress site at http://{WORDPRESS_HOST} \nand you can login at http://{WORDPRESS_HOST}/wp-admin/ \nUsername: {WORDPRESS_USER} Password: {WORDPRESS_PASSWORD}"
+        f"You can view the WordPress site at http://{WORDPRESS_HOST} \nand you can login at http://{WORDPRESS_HOST}/wp-admin/ \nUsername: {WORDPRESS_USER} Password: {WORDPRESS_PASSWORD}"  # noqa
     )
     print("-------------------------------------------------------")
     print(
-        f"You can view the Wagtail site at http://{WAGTAIL_HOST} \nand you can login at http://{WAGTAIL_HOST}/admin/ \nUsername: {WAGTAIL_USER} Password: {WAGTAIL_PASSWORD}"
+        f"You can view the Wagtail site at http://{WAGTAIL_HOST} \nand you can login at http://{WAGTAIL_HOST}/admin/ \nUsername: {WAGTAIL_USER} Password: {WAGTAIL_PASSWORD}"  # noqa
     )
     print("-------------------------------------------------------")
     print("[bold green]Creating the export file for the XML fixtures.[/bold green]")
@@ -168,7 +165,8 @@ def wpexport(c):
     Export the WordPress data to an XML file
     """
     wpdocker_exec(
-        f"php wp-cli.phar export --allow-root --dir=/xml --filename_format=export.xml --user={WORDPRESS_USER}"
+        ("php wp-cli.phar export --allow-root --dir=/xml --filename_format=export.xml"),
+        (f"--user={WORDPRESS_USER}"),
     )
 
 
@@ -245,7 +243,9 @@ def run_import(c, file_name="export.xml", app="pages", model="PostPage"):
     """
     Run the import to Wagtail
     """
-    wtdocker_exec(f"python /app/example/manage.py import_xml xml/{file_name} 3 -a {app} -m {model}")
+    wtdocker_exec(
+        f"python /app/example/manage.py import_xml xml/{file_name} 3 -a {app} -m {model}"
+    )
 
 
 @task
@@ -255,9 +255,9 @@ def run_delete(c, app="pages", model="PostPage", images=False, documents=False):
     """
     wtdocker_exec(f"python /app/example/manage.py delete_imported_pages {app} {model}")
     if images:
-        wtdocker_exec(f"python /app/example/manage.py delete_images")
+        wtdocker_exec("python /app/example/manage.py delete_images")
     if documents:
-        wtdocker_exec(f"python /app/example/manage.py delete_documents")
+        wtdocker_exec("python /app/example/manage.py delete_documents")
 
 
 @task

@@ -1,7 +1,5 @@
-from django.db import models
-
+from pages.models import Category, PostPage
 from wagtail.core.models import Page
-from pages.models import PostPage, Category
 
 
 class HomePage(Page):
