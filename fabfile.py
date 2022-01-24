@@ -165,7 +165,7 @@ def init(c):
 @task
 def wpexport(c):
     """
-    Export the WordPress data to and XML file (run this third)
+    Export the WordPress data to an XML file
     """
     wpdocker_exec(
         f"php wp-cli.phar export --allow-root --dir=/xml --filename_format=export.xml --user={WORDPRESS_USER}"
@@ -199,7 +199,7 @@ def theme_delete(c, name="twentytwentyone"):
 @task
 def permalinks(c):
     """
-    Change the permalink structure to /%postname%/
+    Change the WordPress permalink structure to /%postname%/
     """
     wpdocker_exec("php wp-cli.phar rewrite structure /%postname%/ --allow-root")
 
@@ -235,7 +235,7 @@ def wtdocker_exec(cmd, service="wagtail"):
 @task
 def run_tests(c):
     """
-    Run the tests
+    Run the tests for the Wagtail WordPress Impoter
     """
     wtdocker_exec("cd /app/wagtail-wordpress-import && python testmanage.py test")
 
@@ -243,6 +243,6 @@ def run_tests(c):
 @task
 def run_import(c):
     """
-    Run the import
+    Run the import to Wagtail
     """
     wtdocker_exec("python /app/example/manage.py import_xml xml/export.xml 3")
