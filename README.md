@@ -1,6 +1,6 @@
 # Develop Wagtail Wordpress Import
 
-This is a development setup for the Wagtail Wordpress Import plugin. Wagtail Wordpress Import is a package for Wagtail CMS to import WordPress blog content from an XML file.
+This is a development setup for the Wagtail Wordpress Import plugin. [Wagtail Wordpress Import](https://github.com/torchbox/wagtail-wordpress-import) is a package for Wagtail CMS to import WordPress blog content from an XML file.
 
 ## Requirements
 
