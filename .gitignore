@@ -137,6 +137,7 @@ dmypy.json
 /log
 /media/
 /static/
+/*.json
 
 # package
 wagtail-wordpress-import
