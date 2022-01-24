@@ -29,7 +29,7 @@ Once you have followed the above steps, you will be able to access the
 
 ### Fabric Commands
 
-Use to manage the WordPress docker containers.
+To manage the docker containers.
 
 #### List the available fabric commands
 
