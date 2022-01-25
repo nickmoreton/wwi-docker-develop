@@ -245,6 +245,10 @@ def run_import(c, file_name="export.xml", app="pages", model="PostPage"):
     wtdocker_exec(
         f"python /app/example/manage.py import_xml xml/{file_name} 3 -a {app} -m {model}"
     )
+    print("[bold]Data has been imported.[/bold]")
+    print("-------------------------------------------------------")
+    print(f"Wagtail is running at http://{WAGTAIL_HOST}")
+    print("-------------------------------------------------------")
 
 
 @task
