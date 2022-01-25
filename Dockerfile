@@ -28,7 +28,7 @@ RUN wget https://raw.githubusercontent.com/python-poetry/poetry/${POETRY_VERSION
 USER wagtail
 
 RUN python -m venv $VIRTUAL_ENV
-COPY --chown=wagtailkit_repo_name pyproject.toml poetry.lock ./
+COPY --chown=wagtail pyproject.toml poetry.lock ./
 RUN pip install --upgrade pip && poetry install ${POETRY_INSTALL_ARGS} --no-root
 
 COPY --chown=wagtail:wagtail . .
