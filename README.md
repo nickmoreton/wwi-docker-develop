@@ -62,8 +62,21 @@ Wordpress
 
 Wagtail Wordpress Import / Django
 
-- `sh`              Open a bash shell in the docker development container
-- `run-tests`       Run the tests for the Wagtail WordPress Impoter
+- `sh`                  Open a bash shell in the docker development container
+- `run-import`          Run the import to Wagtail
+- `run-tests`           Run the tests for the Wagtail WordPress Impoter
+- `run-delete`          Delete all the imported pages. Optionally delete the images and documents
+- `run-del-documents`   Delete all the imported documents
+- `run-del-images`      Delete all the imported images
+
+After and initial setup running `./setup.sh` the follwoing fab commands are the most useful.
+
+- start
+- run-tests
+- run-import (this will import the XML data again and only update existing pages)
+- run-delete (run with the args `--images` and/or `--documents`)
+- run-del-documents
+- run-del-images
 
 ## Useful to know
 
