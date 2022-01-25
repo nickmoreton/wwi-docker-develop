@@ -170,7 +170,7 @@ def wpexport(c):
 
 
 @task
-def theme(c, name="twentytwentyone"):
+def theme(c, name="twentytwentytwo"):
     """
     Install a WordPress theme and switch to it
     """
