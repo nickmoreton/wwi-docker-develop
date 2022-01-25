@@ -144,6 +144,7 @@ def init(c):
     wpdocker_exec(
         "php wp-cli.phar import /xml/import.xml --authors=create --allow-root"
     )
+    wpexport(c)
     print("-------------------------------------------------------")
     print("[bold]WordPress is installed.[/bold]")
     print("-------------------------------------------------------")
@@ -156,7 +157,6 @@ def init(c):
     )
     print("-------------------------------------------------------")
     print("[bold green]Creating the export file for the XML fixtures.[/bold green]")
-    wpexport(c)
 
 
 @task
@@ -165,8 +165,7 @@ def wpexport(c):
     Export the WordPress data to an XML file
     """
     wpdocker_exec(
-        ("php wp-cli.phar export --allow-root --dir=/xml --filename_format=export.xml"),
-        (f"--user={WORDPRESS_USER}"),
+        f"php wp-cli.phar export --allow-root --dir=/xml --filename_format=export.xml --user={WORDPRESS_USER}"
     )
 
 
