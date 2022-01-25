@@ -39,9 +39,9 @@ def start(ctx):
 
     local("docker-compose up -d")
 
-    wagtaildocker_exec("python example/manage.py migrate")
+    wagtaildocker_exec("python cms/manage.py migrate")
     wagtaildocker_exec(
-        f"python example/manage.py init_wagtail {WAGTAIL_USER} {WAGTAIL_PASSWORD} {WAGTAIL_ADMIN_EMAIL}"
+        f"python cms/manage.py init_wagtail {WAGTAIL_USER} {WAGTAIL_PASSWORD} {WAGTAIL_ADMIN_EMAIL}"
     )
 
     print("[bold green]WordPress is starting[/bold green]...")
@@ -243,7 +243,7 @@ def run_import(c, file_name="export.xml", app="pages", model="PostPage"):
     Run the import to Wagtail
     """
     wtdocker_exec(
-        f"python /app/example/manage.py import_xml xml/{file_name} 3 -a {app} -m {model}"
+        f"python /app/cms/manage.py import_xml xml/{file_name} 3 -a {app} -m {model}"
     )
     print("[bold]Data has been imported.[/bold]")
     print("-------------------------------------------------------")
@@ -256,11 +256,11 @@ def run_delete(c, app="pages", model="PostPage", images=False, documents=False):
     """
     Delete all the imported pages. Optionally delete the images and documents
     """
-    wtdocker_exec(f"python /app/example/manage.py delete_imported_pages {app} {model}")
+    wtdocker_exec(f"python /app/cms/manage.py delete_imported_pages {app} {model}")
     if images:
-        wtdocker_exec("python /app/example/manage.py delete_images")
+        wtdocker_exec("python /app/cms/manage.py delete_images")
     if documents:
-        wtdocker_exec("python /app/example/manage.py delete_documents")
+        wtdocker_exec("python /app/cms/manage.py delete_documents")
 
 
 @task
@@ -268,7 +268,7 @@ def run_del_images(c):
     """
     Delete all the imported images
     """
-    wtdocker_exec("python /app/example/manage.py delete_images")
+    wtdocker_exec("python /app/cms/manage.py delete_images")
 
 
 @task
@@ -276,4 +276,4 @@ def run_del_documents(c):
     """
     Delete all the imported documents
     """
-    wtdocker_exec("python /app/example/manage.py delete_documents")
+    wtdocker_exec("python /app/cms/manage.py delete_documents")

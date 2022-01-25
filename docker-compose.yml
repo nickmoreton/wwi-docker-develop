@@ -5,7 +5,7 @@ services:
   wagtail:
     build: .
     volumes:
-      - ./example:/app/example # wagtail app
+      - ./cms:/app/cms # wagtail app
       - ./xml:/app/xml # imported and exported xml files
       - ./log:/app/log # import logs
       - ./wagtail-wordpress-import:/app/wagtail-wordpress-import # the package
@@ -14,21 +14,21 @@ services:
       - ./setup.cfg:/app/setup.cfg # linting
     ports:
       - "8000:8000"
-    command: python example/manage.py runserver 0:8000
+    command: python cms/manage.py runserver 0:8000
     depends_on:
       - psqldb
     environment:
       - PSQL_HOST=psqldb
       - PSQL_DATABASE=postgres
       - PSQL_USER=postgres
-      - PSQL_PASSWORD=example
+      - PSQL_PASSWORD=password
       - PSQL_PORT=5432
 
   psqldb:
     image: postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: example
+      POSTGRES_PASSWORD: password
     volumes:
       - psqldb:/var/lib/postgresql/data
 
@@ -37,9 +37,9 @@ services:
     restart: always
     environment:
       WORDPRESS_DB_HOST: mysqldb
-      WORDPRESS_DB_USER: exampleuser
-      WORDPRESS_DB_PASSWORD: examplepass
-      WORDPRESS_DB_NAME: exampledb
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_NAME: wordpressdb
     ports:
       - "8080:80"
     volumes:
@@ -52,9 +52,9 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: exampleuser
-      MYSQL_PASSWORD: examplepass
+      MYSQL_DATABASE: wordpressdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
       - mysqldb:/var/lib/mysql

@@ -132,8 +132,8 @@ dmypy.json
 /xml
 .env
 /.vscode/
-/example/log/*.*
-!/example/log/_index.html
+/cms/log/*.*
+!/cms/log/_index.html
 /log
 /media/
 /static/
