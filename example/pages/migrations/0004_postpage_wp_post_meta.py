@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pages', '0003_auto_20211105_1040'),
+        ("pages", "0003_auto_20211105_1040"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='postpage',
-            name='wp_post_meta',
+            model_name="postpage",
+            name="wp_post_meta",
             field=models.JSONField(blank=True, null=True),
         ),
     ]

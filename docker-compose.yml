@@ -5,10 +5,13 @@ services:
   wagtail:
     build: .
     volumes:
-      - .:/app
-      - ./xml:/app/xml
-      - ./log:/app/log
-      - ./wagtail-wordpress-import:/app/wagtail-wordpress-import
+      - ./example:/app/example # wagtail app
+      - ./xml:/app/xml # imported and exported xml files
+      - ./log:/app/log # import logs
+      - ./wagtail-wordpress-import:/app/wagtail-wordpress-import # the package
+      - ./pyproject.toml:/app/pyproject.toml # poetry
+      - ./poetry.lock:/app/poetry.lock # poetry
+      - ./setup.cfg:/app/setup.cfg # linting
     ports:
       - "8000:8000"
     command: python example/manage.py runserver 0:8000
@@ -40,8 +43,8 @@ services:
     ports:
       - "8080:80"
     volumes:
-      # - ./wordpress:/var/www/html:rw # uncomment to see the WordPress files locally
-      - ./xml:/xml # WordPress XML files shared from the container
+      - ./wordpress:/var/www/html # comment to hide the WordPress files locally
+      - ./xml:/xml:rw # WordPress XML files shared from the container
     depends_on:
       - mysqldb
 
