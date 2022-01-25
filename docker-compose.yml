@@ -8,7 +8,7 @@ services:
       - ./cms:/app/cms # wagtail app
       - ./xml:/app/xml # imported and exported xml files
       - ./log:/app/log # import logs
-      - ./wagtail-wordpress-import:/app/wagtail-wordpress-import # the package
+      # - ./wagtail-wordpress-import:/app/wagtail-wordpress-import # the package
       - ./pyproject.toml:/app/pyproject.toml # poetry
       - ./poetry.lock:/app/poetry.lock # poetry
       - ./setup.cfg:/app/setup.cfg # linting
@@ -60,6 +60,5 @@ services:
       - mysqldb:/var/lib/mysql
 
 volumes:
-  # wordpress: # uncomment to see the WordPress files locally
   mysqldb:
   psqldb:
