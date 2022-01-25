@@ -6,15 +6,15 @@ services:
     build: .
     volumes:
       - ./cms:/app/cms # wagtail app
-      - ./xml:/app/xml # imported and exported xml files
       - ./log:/app/log # import logs
-      # - ./wagtail-wordpress-import:/app/wagtail-wordpress-import # the package
       - ./pyproject.toml:/app/pyproject.toml # poetry
       - ./poetry.lock:/app/poetry.lock # poetry
       - ./setup.cfg:/app/setup.cfg # linting
+      - ./wagtail-wordpress-import:/app/wagtail-wordpress-import # the package
+      - ./xml:/app/xml # imported and exported xml files
     ports:
       - "8000:8000"
-    command: python cms/manage.py runserver 0:8000
+    command: python cms/manage.py runserver 0.0.0.0:8000
     depends_on:
       - psqldb
     environment:
@@ -43,7 +43,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./wordpress:/var/www/html # comment to hide the WordPress files locally
+      # - ./wordpress:/var/www/html # un-comment to show the WordPress files locally
       - ./xml:/xml:rw # WordPress XML files shared from the container
     depends_on:
       - mysqldb

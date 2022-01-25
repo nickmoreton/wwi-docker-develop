@@ -60,9 +60,6 @@ def start(ctx):
     print("-------------------------------------------------------")
     print(f"You can check that Wagtail is running at http://{WAGTAIL_HOST}")
     print("-------------------------------------------------------")
-    print(
-        "[bold]Now run [yellow]fab init[/yellow] to install the WordPress initial test data[/bold]"
-    )
 
 
 @task
