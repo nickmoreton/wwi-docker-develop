@@ -138,6 +138,12 @@ dmypy.json
 /media/
 /static/
 /*.json
+!/package.json
+!/package-lock.json
 
 # package
 wagtail-wordpress-import
+
+# local
+node_modules/
+.sass*

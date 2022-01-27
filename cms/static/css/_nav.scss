@@ -1,0 +1,15 @@
+.nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 0.5em;
+    background-color: black;
+    color: white;
+    &-form {
+        display: flex;
+        align-items: center;
+        > * {
+            margin-left: 0.5em;
+        }
+    }
+}
