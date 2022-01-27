@@ -69,7 +69,7 @@ Wagtail Wordpress Import / Django
 - `run-del-documents`   Delete all the imported documents
 - `run-del-images`      Delete all the imported images
 
-After and initial setup running `./setup.sh` the follwoing fab commands are the most useful.
+After and initial setup running `./setup.sh` the following fab commands are the most useful.
 
 - start
 - run-tests
