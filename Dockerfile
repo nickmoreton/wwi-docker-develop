@@ -25,15 +25,25 @@ RUN wget https://raw.githubusercontent.com/python-poetry/poetry/${POETRY_VERSION
     chown -R root:root ${POETRY_HOME} && \
     chmod -R 0755 ${POETRY_HOME}
 
-USER wagtail
-
 RUN python -m venv $VIRTUAL_ENV
-COPY --chown=wagtail pyproject.toml poetry.lock ./
+COPY pyproject.toml poetry.lock ./
+# COPY --chown=wagtail pyproject.toml poetry.lock ./
 RUN pip install --upgrade pip && poetry install ${POETRY_INSTALL_ARGS} --no-root
 
-COPY --chown=wagtail:wagtail . .
-COPY --chown=wagtail:wagtail ./docker/wagtail-init.sh /app/wagtail-init.sh
-COPY --chown=wagtail:wagtail ./docker/bashrc.sh /home/wagtail/.bashrc
-RUN cd wagtail-wordpress-import && pip install -e .["testing"]
+COPY . .
+COPY ./docker/wagtail-init.sh /app/wagtail-init.sh
+COPY ./docker/bashrc.sh /home/wagtail/.bashrc
+RUN cd wagtail-wordpress-import && \
+    pip install -e .["testing"]
+
+# COPY --chown=wagtail . .
+# COPY --chown=wagtail ./docker/wagtail-init.sh /app/wagtail-init.sh
+# COPY --chown=wagtail ./docker/bashrc.sh /home/wagtail/.bashrc
+# RUN cd wagtail-wordpress-import && \
+#     mkdir -p test-media && \
+#     chown -R wagtail test-media && \
+#     pip install -e .["testing"]
+
+# USER wagtail
 
 RUN poetry install ${POETRY_INSTALL_ARGS}

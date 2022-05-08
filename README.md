@@ -5,7 +5,8 @@ This is a development setup for the Wagtail Wordpress Import plugin. [Wagtail Wo
 ## Requirements
 
 - [Docker](https://www.docker.com/products/docker-desktop)
-- A few python packages in requirements-dev.txt for local commands `pip install -r requirements-dev.txt`
+- [Fabric](https://www.fabfile.org/)
+- [Poetry](https://python-poetry.org/)
 
 ## Installation
 
@@ -18,14 +19,16 @@ git clone https://github.com/nickmoreton/wwi-docker-develop
 # change to the wwi-docker-develop directory
 cd wwi-docker-develop
 
-# install everything and run a test import
+# install dependencies with poetry and run the setup
+poetry shell
+poetry install
 ./setup.sh
 ```
 
-Once you have followed the above steps, you will be able to access the
+Once you have followed the above steps, you will be able to access.
 
-- Wagtail admin interface at <http://localhost:8000/admin>
-- WordPress admin interface at  <http://localhost:8080/wp-admin>
+- Wagtail admin interface at <http://[local-ip]:8000/admin>
+- WordPress admin interface at  <http://[local-ip]:8080/wp-admin>
 
 ### Fabric Commands
 
