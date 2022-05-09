@@ -5,13 +5,13 @@ services:
   wagtail:
     build: .
     volumes:
-      - ./cms:/app/cms:rw # wagtail app
-      - ./log:/app/log:rw # import logs
+      - ./cms:/app/cms # wagtail app
+      - ./log:/app/log # import logs
       - ./pyproject.toml:/app/pyproject.toml # poetry
       - ./poetry.lock:/app/poetry.lock # poetry
       - ./setup.cfg:/app/setup.cfg # linting
       - ./wagtail-wordpress-import:/app/wagtail-wordpress-import # the package
-      - ./xml:/app/xml:rw # imported and exported xml files
+      - ./xml:/app/xml # imported and exported xml files
     ports:
       - "8000:8000"
     command: python cms/manage.py runserver 0.0.0.0:8000
