@@ -5,18 +5,19 @@ services:
   wagtail:
     build: .
     volumes:
-      - ./cms:/app/cms # wagtail app
-      - ./log:/app/log # import logs
+      - ./cms:/app/cms:rw # wagtail app
+      - ./log:/app/log:rw # import logs
       - ./pyproject.toml:/app/pyproject.toml # poetry
       - ./poetry.lock:/app/poetry.lock # poetry
       - ./setup.cfg:/app/setup.cfg # linting
       - ./wagtail-wordpress-import:/app/wagtail-wordpress-import # the package
-      - ./xml:/app/xml # imported and exported xml files
+      - ./xml:/app/xml:rw # imported and exported xml files
     ports:
       - "8000:8000"
     command: python cms/manage.py runserver 0.0.0.0:8000
     depends_on:
-      - psqldb
+      psqldb:
+        condition: service_healthy
     environment:
       - PSQL_HOST=psqldb
       - PSQL_DATABASE=postgres
@@ -31,6 +32,11 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - psqldb:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   wordpress:
     image: wordpress
@@ -46,7 +52,8 @@ services:
       # - ./wordpress:/var/www/html # un-comment to show the WordPress files locally
       - ./xml:/xml:rw # WordPress XML files shared from the container
     depends_on:
-      - mysqldb
+      mysqldb:
+        condition: service_healthy
 
   mysqldb:
     image: mysql:5.7
@@ -58,6 +65,11 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
       - mysqldb:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   mysqldb:

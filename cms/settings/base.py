@@ -15,11 +15,10 @@ import os
 
 from dotenv import load_dotenv
 
-load_dotenv()
-
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -172,9 +171,10 @@ WAGTAIL_SITE_NAME = "cms"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-# BASE_URL = "http://example.com"
-
+BASE_URL = "http://localhost:8000"
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
-WAGTAIL_WORDPRESS_IMPORTER_SOURCE_DOMAIN = "http://localhost:8080"
+WAGTAIL_WORDPRESS_IMPORTER_SOURCE_DOMAIN = os.environ.get(
+    "WAGTAIL_WORDPRESS_IMPORTER_SOURCE_DOMAIN"
+)

@@ -1,0 +1,15 @@
+# List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
+tasks:
+  - name: Initial
+    init: pyenv install 3.9.5
+    command: |
+      pip install -r requirements-gitpod.txt
+      cp env.example .env
+      echo WAGTAIL_WORDPRESS_IMPORTER_SOURCE_DOMAIN=$(gp url 8080) >>.env
+      echo BASE_URL=$(gp url 8000) >>.env
+      git clone https://github.com/torchbox/wagtail-wordpress-import.git
+      fab build
+      fab start
+      fab run-tests
+      fab init
+      fab run-import

@@ -7,26 +7,21 @@ from invoke import run as local
 from invoke.tasks import task
 from rich import print
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv()
 
+# vars for this fab file
+user = os.environ.get("ENV_USER")
+password = os.environ.get("ENV_PASS")
+email = os.environ.get("ENV_EMAIL")
+wordpress_host = os.environ.get("WAGTAIL_WORDPRESS_IMPORTER_SOURCE_DOMAIN")
+wagtail_host = os.environ.get("BASE_URL")
 
-user = os.environ.get("ADMIN_USER")
-password = os.environ.get("ADMIN_PASSWORD")
-email = os.environ.get("ADMIN_EMAIL")
-host_ip = os.environ.get("HOST_IP")
-
-""" accept these values or set your own"""
-WORDPRESS_USER = user
-WORDPRESS_PASSWORD = password
-WORDPRESS_ADMIN_EMAIL = email
-WORDPRESS_HOST = host_ip + ":8080"
-
-WAGTAIL_USER = user
-WAGTAIL_PASSWORD = password
-WAGTAIL_ADMIN_EMAIL = email
-WAGTAIL_HOST = host_ip + ":8000"
-
-""" COMMON TASKS """
+WORDPRESS_USER = WAGTAIL_USER = user
+WORDPRESS_PASSWORD = WAGTAIL_PASSWORD = password
+WORDPRESS_ADMIN_EMAIL = WAGTAIL_ADMIN_EMAIL = email
+WORDPRESS_HOST = wordpress_host
+WAGTAIL_HOST = wagtail_host
 
 
 @task
@@ -34,9 +29,6 @@ def start(ctx):
     """
     Start the docker containers
     """
-    # load_dotenv(".env")
-    # url = os.environ.get("url")
-
     local("docker-compose up -d")
 
     wagtaildocker_exec("python cms/manage.py migrate")
@@ -54,11 +46,11 @@ def start(ctx):
     print("-------------------------------------------------------")
     print("[bold]WordPress is installed.[/bold]")
     print("-------------------------------------------------------")
-    print(f"You can check that WordPress is running at http://{WORDPRESS_HOST}")
+    print(f"You can check that WordPress is running at {WORDPRESS_HOST}")
     print("-------------------------------------------------------")
     print("[bold]Wagtail is installed.[/bold]")
     print("-------------------------------------------------------")
-    print(f"You can check that Wagtail is running at http://{WAGTAIL_HOST}")
+    print(f"You can check that Wagtail is running at {WAGTAIL_HOST}")
     print("-------------------------------------------------------")
 
 
@@ -119,8 +111,6 @@ def init(c):
     """
     Install WordPress CLI and import the XML theme fixures with media files (run this second)
     """
-    # load_dotenv(".env")
-    # url = os.environ.get("url")
     local("mkdir -p xml")
 
     wpdocker_exec(
@@ -146,11 +136,11 @@ def init(c):
     print("[bold]WordPress is installed.[/bold]")
     print("-------------------------------------------------------")
     print(
-        f"You can view the WordPress site at http://{WORDPRESS_HOST} \nand you can login at http://{WORDPRESS_HOST}/wp-admin/ \nUsername: {WORDPRESS_USER} Password: {WORDPRESS_PASSWORD}"  # noqa
+        f"You can view the WordPress site at {WORDPRESS_HOST} \nand you can login at {WORDPRESS_HOST}/wp-admin/ \nUsername: {WORDPRESS_USER} Password: {WORDPRESS_PASSWORD}"  # noqa
     )
     print("-------------------------------------------------------")
     print(
-        f"You can view the Wagtail site at http://{WAGTAIL_HOST} \nand you can login at http://{WAGTAIL_HOST}/admin/ \nUsername: {WAGTAIL_USER} Password: {WAGTAIL_PASSWORD}"  # noqa
+        f"You can view the Wagtail site at {WAGTAIL_HOST} \nand you can login at {WAGTAIL_HOST}/admin/ \nUsername: {WAGTAIL_USER} Password: {WAGTAIL_PASSWORD}"  # noqa
     )
     print("-------------------------------------------------------")
     print("[bold green]Creating the export file for the XML fixtures.[/bold green]")
@@ -229,7 +219,7 @@ def wtdocker_exec(cmd, service="wagtail"):
 @task
 def run_tests(c):
     """
-    Run the tests for the Wagtail WordPress Impoter
+    Run the tests for the Wagtail WordPress Importer
     """
     wtdocker_exec("cd /app/wagtail-wordpress-import && python testmanage.py test")
 
@@ -244,7 +234,7 @@ def run_import(c, file_name="export.xml", app="pages", model="PostPage"):
     )
     print("[bold]Data has been imported.[/bold]")
     print("-------------------------------------------------------")
-    print(f"Wagtail is running at http://{WAGTAIL_HOST}")
+    print(f"Wagtail is running at {WAGTAIL_HOST}")
     print("-------------------------------------------------------")
 
 
