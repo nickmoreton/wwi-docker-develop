@@ -5,7 +5,7 @@ description = ""
 authors = ["Nick Moreton <nickmoreton@me.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 wagtail = "~2.15"
 python-dotenv = "~0.19.2"
 psycopg2-binary = "^2.9.3"
