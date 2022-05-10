@@ -1,0 +1,31 @@
+{
+  "name": "wwi-docker-develop",
+  "version": "1.0.0",
+  "description": "This is a development setup for the Wagtail Wordpress Import plugin. [Wagtail Wordpress Import](https://github.com/torchbox/wagtail-wordpress-import) is a package for Wagtail CMS to import WordPress blog content from an XML file.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "start": "npm-run-all -p sass:dev reload",
+    "reload": "browser-sync start --files \"cms\" --port 3000 --proxy 'localhost:8000'",
+    "sass:dev": "sass --watch --style=expanded cms/static/css/app.scss:cms/static/css/app.css",
+    "sass:prod": "sass --update --style=compressed cms/static/css/app.scss:cms/static/css/app.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickmoreton/wwi-docker-develop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nickmoreton/wwi-docker-develop/issues"
+  },
+  "homepage": "https://github.com/nickmoreton/wwi-docker-develop#readme",
+  "devDependencies": {
+    "browser-sync": "^2.27.7",
+    "gulp": "^4.0.2",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.49.0"
+  }
+}

@@ -1,0 +1,19 @@
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: sans-serif;
+    line-height: 1.2em;
+
+    font-size: 1.6rem;
+    font-weight: 400;
+
+    box-sizing: border-box;
+}
