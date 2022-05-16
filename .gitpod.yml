@@ -5,7 +5,10 @@ tasks:
       cp env.example .env
       echo WAGTAIL_WORDPRESS_IMPORTER_SOURCE_DOMAIN=$(gp url 8080) >>.env
       echo BASE_URL=$(gp url 8000) >>.env
-      git clone https://github.com/torchbox/wagtail-wordpress-import.git
+      git clone https://github.com/nickmoreton/wagtail-wordpress-import
+      cd wagtail-wordpress-import
+      git checkout wagtail-3.0
+      cd ..
       fab build
       fab start
       fab run-tests
