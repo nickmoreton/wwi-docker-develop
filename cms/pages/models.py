@@ -1,14 +1,26 @@
 from django import forms
 from django.db import models
 from modelcluster.fields import ParentalManyToManyField
-from wagtail.admin.panels import (
-    FieldPanel,
-    ObjectList,
-    StreamFieldPanel,
-    TabbedInterface,
-)
-from wagtail.fields import StreamField
-from wagtail.models import Page
+
+try:
+    from wagtail.admin.panels import FieldPanel, ObjectList, TabbedInterface
+except ImportError:
+    from wagtail.admin.edit_handlers import (
+        FieldPanel,
+        ObjectList,
+        StreamFieldPanel,
+        TabbedInterface,
+    )
+try:
+    from wagtail.fields import StreamField
+except ImportError:
+    from wagtail.core.fields import StreamField
+try:
+    from wagtail.models import Page
+except ImportError:
+    from wagtail.core.models import Page
+
+from wagtail import VERSION as WAGTAIL_VERSION
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
@@ -32,11 +44,18 @@ class PostPage(WPImportedPageMixin, Page):
         on_delete=models.SET_NULL,
     )
 
-    content_panels = Page.content_panels + [
-        SnippetChooserPanel("author"),
-        ImageChooserPanel("header_image"),
-        StreamFieldPanel("body"),
-    ]
+    if WAGTAIL_VERSION >= (3, 0):
+        content_panels = Page.content_panels + [
+            SnippetChooserPanel("author"),
+            ImageChooserPanel("header_image"),
+            FieldPanel("body"),
+        ]
+    else:
+        content_panels = Page.content_panels + [
+            SnippetChooserPanel("author"),
+            ImageChooserPanel("header_image"),
+            StreamFieldPanel("body"),
+        ]
 
     promote_panels = Page.promote_panels + [
         FieldPanel("categories", widget=forms.CheckboxSelectMultiple),
