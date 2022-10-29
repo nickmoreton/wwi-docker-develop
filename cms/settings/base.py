@@ -14,7 +14,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 
 from dotenv import load_dotenv
-from wagtail import VERSION as WAGTAIL_VERSION
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
