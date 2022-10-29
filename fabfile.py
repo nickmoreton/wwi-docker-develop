@@ -111,13 +111,13 @@ def init(c):
     """
     Install WordPress CLI and import the XML theme fixures with media files (run this second)
     """
-    local("mkdir -p xml")
+    # local("mkdir -p xml")
 
     wpdocker_exec(
         "curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
     )
     wpdocker_exec("chmod +x wp-cli.phar")
-    wpdocker_exec("mkdir -p /xml")
+    # wpdocker_exec("mkdir -p /xml && chmod 777 /xml")
     wpdocker_exec(
         "curl https://raw.githubusercontent.com/WPTT/theme-unit-test/master/themeunittestdata.wordpress.xml -o /xml/import.xml"  # noqa
     )
