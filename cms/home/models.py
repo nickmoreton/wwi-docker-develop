@@ -1,5 +1,9 @@
 from pages.models import Category, PostPage
-from wagtail.core.models import Page
+
+try:
+    from wagtail.models import Page
+except ImportError:
+    from wagtail.core.models import Page
 
 
 class HomePage(Page):
