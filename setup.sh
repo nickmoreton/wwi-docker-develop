@@ -14,8 +14,11 @@ fi
 
 if [ ! -d "wagtail-wordpress-import" ]
 then
-    git clone https://github.com/torchbox/wagtail-wordpress-import
-    git checkout wagtail-3.0
+    git clone git@github.com:torchbox/wagtail-wordpress-import.git
+    cd wagtail-wordpress-import && git checkout develop
+    cd ..
+    mkdir -p log && chmod 777 log
+    mkdir -p xml && chmod 777 xml
 else
     echo "Using existing wagtai-wordpress-import."
 fi

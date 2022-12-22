@@ -5,13 +5,13 @@ services:
   wagtail:
     build: .
     volumes:
-      - ./cms:/app/cms # wagtail app
-      - ./log:/app/log # import logs
-      - ./pyproject.toml:/app/pyproject.toml # poetry
-      - ./poetry.lock:/app/poetry.lock # poetry
-      - ./setup.cfg:/app/setup.cfg # linting
-      - ./wagtail-wordpress-import:/app/wagtail-wordpress-import # the package
-      - ./xml:/app/xml # imported and exported xml files
+      - ./cms:/app/cms:rw # wagtail app
+      - ./log:/app/log:rw # import logs
+      - ./pyproject.toml:/app/pyproject.toml:rw # poetry
+      - ./poetry.lock:/app/poetry.lock:rw # poetry
+      - ./setup.cfg:/app/setup.cfg:rw # linting
+      - ./wagtail-wordpress-import:/app/wagtail-wordpress-import:rw # the package
+      - ./xml:/app/xml:rw # imported and exported xml files
     ports:
       - "8000:8000"
     command: python cms/manage.py runserver 0.0.0.0:8000
@@ -24,6 +24,7 @@ services:
       - PSQL_USER=postgres
       - PSQL_PASSWORD=password
       - PSQL_PORT=5432
+      - WAGTAILADMIN_BASE_URL=http://localhost:8000
 
   psqldb:
     image: postgres
@@ -33,7 +34,7 @@ services:
     volumes:
       - psqldb:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
+      test: [ "CMD-SHELL", "pg_isready" ]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -66,7 +67,7 @@ services:
     volumes:
       - mysqldb:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       interval: 5s
       timeout: 5s
       retries: 5

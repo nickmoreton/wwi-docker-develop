@@ -7,7 +7,7 @@ tasks:
       echo BASE_URL=$(gp url 8000) >>.env
       git clone https://github.com/torchbox/wagtail-wordpress-import
       cd wagtail-wordpress-import
-      git checkout wagtail-3.0
+      git checkout develop
       cd ..
       fab build
       fab start

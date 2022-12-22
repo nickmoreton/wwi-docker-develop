@@ -14,9 +14,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 
 from dotenv import load_dotenv
-from wagtail import VERSION as WAGTAIL_VERSION
-
-WAGTAIL_CORE = "wagtail" if WAGTAIL_VERSION < (3, 0) else "wagtail.core"
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -43,7 +40,7 @@ INSTALLED_APPS = [
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
-    WAGTAIL_CORE,
+    "wagtail",
     "modelcluster",
     "taggit",
     "django.contrib.admin",
@@ -181,3 +178,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 WAGTAIL_WORDPRESS_IMPORTER_SOURCE_DOMAIN = os.environ.get(
     "WAGTAIL_WORDPRESS_IMPORTER_SOURCE_DOMAIN"
 )
+
+WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL")
