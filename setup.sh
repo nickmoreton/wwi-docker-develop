@@ -15,7 +15,7 @@ fi
 if [ ! -d "wagtail-wordpress-import" ]
 then
     git clone git@github.com:torchbox/wagtail-wordpress-import.git
-    cd wagtail-wordpress-import && git checkout develop
+    cd wagtail-wordpress-import && git checkout main
     cd ..
     mkdir -p log && chmod 777 log
     mkdir -p xml && chmod 777 xml
