@@ -6,9 +6,9 @@ authors = ["Nick Moreton <nickmoreton@me.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-wagtail = "^4.0"
-python-dotenv = "~0.19.2"
-psycopg2-binary = "^2.9.3"
+wagtail = "~4.1"
+python-dotenv = "^0.21.0"
+psycopg2-binary = "^2.9.5"
 
 [tool.poetry.dev-dependencies]
 django-extensions = "~3.1.5"
